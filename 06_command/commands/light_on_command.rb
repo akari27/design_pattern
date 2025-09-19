@@ -6,4 +6,8 @@ class LightOnCommand
   def execute
     @light.on
   end
+
+  def undo
+    @light.off
+  end
 end

@@ -5,6 +5,10 @@ require_relative 'commands/light_off_command'
 require_relative 'devices/stereo'
 require_relative 'commands/stereo_on_command'
 require_relative 'commands/stereo_off_command'
+require_relative 'devices/ceiling_fan'
+require_relative 'commands/ceiling_fan_high_command'
+require_relative 'commands/ceiling_fan_low_command'
+require_relative 'commands/ceiling_fan_off_command'
 
 remote_control = RemoteControl.new
 
@@ -16,5 +20,16 @@ remote_control.button_off_was_pressed(0)
 
 remote_control.set_command(1, StereoOnCommand.new(Stereo.new), StereoOffCommand.new(Stereo.new))
 puts remote_control.commands
+
 remote_control.button_on_was_pressed(1)
 remote_control.button_off_was_pressed(1)
+
+remote_control.undo_button_was_pressed
+
+remote_control.set_command(2, CeilingFanHighCommand.new(CeilingFan.new), CeilingFanOffCommand.new(CeilingFan.new))
+remote_control.set_command(3, CeilingFanLowCommand.new(CeilingFan.new), CeilingFanOffCommand.new(CeilingFan.new))
+puts remote_control.commands
+
+remote_control.button_on_was_pressed(2)
+remote_control.button_on_was_pressed(3)
+remote_control.undo_button_was_pressed

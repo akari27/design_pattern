@@ -10,4 +10,8 @@ class StereoOnCommand
     @stereo.set_cd
     @stereo.set_volume(DEFAULT_VOLUME)
   end
+
+  def undo
+    @stereo.off
+  end
 end

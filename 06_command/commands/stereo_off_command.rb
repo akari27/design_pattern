@@ -6,4 +6,8 @@ class StereoOffCommand
   def execute
     @stereo.off
   end
+
+  def undo
+    @stereo.on
+  end
 end

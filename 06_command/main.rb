@@ -16,19 +16,27 @@ remote_control.set_command(0, LightOnCommand.new(Light.new), LightOffCommand.new
 puts remote_control.commands
 
 remote_control.button_on_was_pressed(0)
+remote_control.undo_button_was_pressed
+
 remote_control.button_off_was_pressed(0)
+remote_control.undo_button_was_pressed
 
 remote_control.set_command(1, StereoOnCommand.new(Stereo.new), StereoOffCommand.new(Stereo.new))
 puts remote_control.commands
 
 remote_control.button_on_was_pressed(1)
-remote_control.button_off_was_pressed(1)
-
 remote_control.undo_button_was_pressed
 
-remote_control.set_command(2, CeilingFanHighCommand.new(CeilingFan.new), CeilingFanOffCommand.new(CeilingFan.new))
-remote_control.set_command(3, CeilingFanLowCommand.new(CeilingFan.new), CeilingFanOffCommand.new(CeilingFan.new))
+remote_control.button_off_was_pressed(1)
+remote_control.undo_button_was_pressed
+
+ceiling_fan = CeilingFan.new
+remote_control.set_command(2, CeilingFanHighCommand.new(ceiling_fan), CeilingFanOffCommand.new(ceiling_fan))
+remote_control.set_command(3, CeilingFanLowCommand.new(ceiling_fan), CeilingFanOffCommand.new(ceiling_fan))
 puts remote_control.commands
+
+remote_control.button_on_was_pressed(2)
+remote_control.undo_button_was_pressed
 
 remote_control.button_on_was_pressed(2)
 remote_control.button_on_was_pressed(3)

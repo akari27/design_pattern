@@ -5,7 +5,7 @@ class CeilingFanLowCommand
   end
 
   def execute
-    # @prev_speed = @ceiling_fan.speed
+    @prev_speed = @ceiling_fan.speed
     @ceiling_fan.low
   end
 

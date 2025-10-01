@@ -261,3 +261,70 @@ puts '---------------------'
 gumball_machine_with_state.insert_quarter
 gumball_machine_with_state.turn_crank
 puts '---------------------'
+
+class WinnerState
+  def initialize(gumball_machine)
+    @gumball_machine = gumball_machine
+  end
+
+  def insert_quarter
+    puts 'しばらくお待ちください。商品をお取りください'
+  end
+
+  def eject_quarter
+    puts '商品をお取りください'
+  end
+
+  def turn_crank
+    puts 'ハンドルは1回しか回せません'
+  end
+
+  def dispense
+    puts '当たりです！ガムボールが2個出てきます'
+    @gumball_machine.count -= 1
+    if @gumball_machine.count.zero?
+      puts 'ガムボールがなくなりました'
+      @gumball_machine.state = @gumball_machine.sold_out_state
+    else
+      @gumball_machine.count -= 1
+      if @gumball_machine.count.zero?
+        puts 'ガムボールがなくなりました'
+        @gumball_machine.state = @gumball_machine.sold_out_state
+      else
+        @gumball_machine.state = @gumball_machine.no_quarter_state
+      end
+    end
+  end
+end
+
+class GumballMachineWithWinnerState < GumballMachineWithState
+  def turn_crank
+    if rand(10).zero? && @state == @has_quarters_state && @count > 1
+      @state = @winner_state
+    else
+      super
+    end
+    @state.dispense
+  end
+
+  def initialize(number_gumballs)
+    super
+    @winner_state = WinnerState.new(self)
+  end
+
+  attr_reader :winner_state
+end
+
+gumball_machine_with_winner_state = GumballMachineWithWinnerState.new(5)
+puts '---------------------'
+gumball_machine_with_winner_state.insert_quarter
+gumball_machine_with_winner_state.turn_crank
+puts '---------------------'
+gumball_machine_with_winner_state.insert_quarter
+gumball_machine_with_winner_state.eject_quarter
+gumball_machine_with_winner_state.turn_crank
+puts '---------------------'
+gumball_machine_with_winner_state.insert_quarter
+gumball_machine_with_winner_state.insert_quarter
+gumball_machine_with_winner_state.turn_crank
+puts '---------------------'
